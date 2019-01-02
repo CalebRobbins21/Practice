@@ -160,3 +160,191 @@ Person.prototype.myFriends5 = function(friends) {
 }
 var friends = ['Caleb', 'Jennie', 'Roger'];
 new Person('Lisa').myFriends5(friends);
+
+///////////////////////////////////////////////////////////////////////
+//Lecture: Destructuring
+/*
+//ES5
+var caleb = ['Caleb', 22];
+//var name = caleb[0];
+//var age = caleb[1];
+
+//ES6
+const [name, age] = ['Caleb', 22];
+console.log(name + ' ' + age);
+
+const obj = {
+    firstName: 'Caleb',
+    lastName: 'Robbins'
+};
+
+const {firstName, lastName} = obj;
+console.log(firstName);
+console.log(lastName);
+
+const {firstName: a, lastName: b} = obj;
+console.log(a);
+console.log(b);
+
+
+function calcAgeRetirement(year) {
+    const age = new Date().getFullYear() - year;
+    return [age, 65 - age];
+}
+
+const [age2, retirement] = calcAgeRetirement(1996);
+console.log(age2);
+console.log(retirement);
+*/
+
+/////////////////////////////////////////////////////////////////////////////////
+//Arrays
+/*
+const boxes = document.querySelectorAll('.box');
+
+//ES5
+var boxesArr5 = Array.prototype.slice.call(boxes);
+
+boxesArr5.forEach(function(current) {
+    current.style.backgroundColor = 'dodgerblue';
+});
+
+//ES6
+const boxesArr6 = Array.from(boxes);
+boxesArr6.forEach(current => current.style.backgroundColor = 'green');
+
+//ES5
+
+for(var i = 0; i < boxesArr5.length; i++) {
+    if(boxesArr5[i].className === 'box blue') {
+        continue;
+    }
+
+    boxesArr5[i].textContent = 'I changed to blue!';
+}
+
+
+//ES6
+for (const el of boxesArr6) {
+    if(el.className === 'box blue'){
+        continue;
+    }
+    el.textContent = 'I changed to green!';
+}
+
+//ES5
+var ages = [12, 17, 8, 21, 14, 11];
+
+var fullAge = ages.map(function(el){
+    return el >= 18;
+});
+console.log(fullAge);
+
+fullAge.indexOf(true);
+console.log(ages[fullAge.indexOf(true)]);
+
+//ES6
+ages.findIndex(current => current >= 18);
+console.log(ages.findIndex(current => current >= 18));
+console.log(ages.find(current => current >= 18));
+*/
+
+////////////////////////////////////////////////////////////////////////////////////
+// Spread Operator
+/*
+function addFourAges (a, b, c, d) {
+    return a + b + c + d;
+}
+
+var sum1 = addFourAges(18, 12, 30, 21);
+console.log(sum1);
+
+//ES5
+var ages = [18, 30, 12, 21];
+var sum2 = addFourAges.apply(null, ages);
+console.log(sum2);
+
+//ES6
+const max3 = addFourAges(...ages);
+console.log(max3);
+
+const familyRobbins = ['Caleb', 'Jake', 'Luke', 'Noah'];
+const familyMantell = ['Jennie', 'Kat', 'Mary', 'Alex', 'Brit'];
+const bigFamily = [...familyRobbins, ...familyMantell];
+console.log(bigFamily);
+
+const h = document.querySelector('h1');
+const boxes = document.querySelectorAll('.box');
+const all = [h, ...boxes];
+
+Array.from(all).forEach(el => el.style.color = 'purple');
+*/
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// Rest Parameters
+/*
+//ES5
+function isFullAge5(){
+    //console.log(arguments);
+    var argsArr = Array.prototype.slice.call(arguments);
+
+    argsArr.forEach(function(el) {
+        console.log((2018 - el) >= 21);
+    })
+}
+
+//isFullAge5(1990, 1996, 1950, 2000);
+
+//ES6
+function isFullAge6(...years) {
+    years.forEach(el => console.log((2018 - el) >= 18));
+}
+
+isFullAge6(1990, 1996, 2001);
+
+function isFullAge5(limit){
+    var argsArr = Array.prototype.slice.call(arguments, 1);
+    console.log(argsArr);
+
+    argsArr.forEach(function(el) {
+        console.log((2018 - el) >= limit);
+    })
+}
+
+isFullAge5(16, 1990, 1996, 1950, 2000);
+
+//ES6
+function isFullAge6(limit, ...years) {
+    years.forEach(el => console.log((2018 - el) >= limit));
+}
+
+isFullAge6(19, 1990, 1996, 2001);
+*/
+
+///////////////////////////////////////////////////////////////////////////////////////////
+//Default Parameters
+//ES5
+/*
+function RobbinsPerson(firstName, yearOfBirth, lastName, nationality) {
+    lastName === undefined ? lastName = 'Robbins' : lastName = lastName;
+    nationality === undefined ? nationality = 'American' : nationality = nationality;
+
+    this.firstName = firstName;
+    this.yearOfBirth = yearOfBirth;
+    this.lastName = lastName;
+    this.nationality = nationality;
+}
+
+var caleb = new RobbinsPerson('Caleb', 1996);
+var Jennie = new RobbinsPerson ('Jennie', 1994, 'Mantell', 'Italian');
+*/
+//ES6
+function RobbinsPerson(firstName, yearOfBirth, lastName = 'Robbins', nationality = 'American') {
+    this.firstName = firstName;
+    this.yearOfBirth = yearOfBirth;
+    this.lastName = lastName;
+    this.nationality = nationality;
+}
+
+var caleb = new RobbinsPerson('Caleb', 1996, 'Robbins', 'American');
+var jennie = new RobbinsPerson('Jennie', 1994);
